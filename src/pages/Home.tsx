@@ -17,11 +17,41 @@ const FAVORITES_KEY = 'quotecanvas-favorites'
 const HISTORY_KEY = 'quotecanvas-history'
 const ROTATING_WORDS = ['calm typography', 'soft blues', 'handcrafted layouts', 'slow inspiration']
 
+const COLOR_PALETTES = [
+  {
+    bodyGlowA: 'rgba(174, 207, 239, 0.45)',
+    bodyGlowB: 'rgba(213, 228, 241, 0.55)',
+  },
+  {
+    bodyGlowA: 'rgba(230, 213, 198, 0.54)',
+    bodyGlowB: 'rgba(242, 229, 218, 0.65)',
+  },
+  {
+    bodyGlowA: 'rgba(198, 226, 221, 0.5)',
+    bodyGlowB: 'rgba(223, 239, 235, 0.66)',
+  },
+  {
+    bodyGlowA: 'rgba(222, 214, 244, 0.52)',
+    bodyGlowB: 'rgba(238, 233, 250, 0.68)',
+  },
+]
+
+const DEFAULT_PALETTE_INDEX = 0
+
+const getPaletteIndex = (quoteId?: number | null) => {
+  if (!quoteId) {
+    return DEFAULT_PALETTE_INDEX
+  }
+
+  return quoteId % COLOR_PALETTES.length
+}
+
 const Home = () => {
   const { quotes, loading, error, refresh } = useQuotes()
   const { theme, toggleTheme } = useTheme()
   const [search, setSearch] = useState('')
   const [currentQuoteId, setCurrentQuoteId] = useState<number | null>(null)
+  const [paletteIndex, setPaletteIndex] = useState(DEFAULT_PALETTE_INDEX)
   const [copyLabel, setCopyLabel] = useState('Copy')
   const [favorites, setFavorites] = useLocalStorage<number[]>(FAVORITES_KEY, [])
   const [history, setHistory] = useLocalStorage<number[]>(HISTORY_KEY, [])
@@ -63,6 +93,14 @@ const Home = () => {
   }, [currentQuoteId])
 
   const currentIsFavorite = Boolean(currentQuote && favorites.includes(currentQuote.id))
+  const activePalette = COLOR_PALETTES[paletteIndex]
+
+  useEffect(() => {
+    const root = document.documentElement
+
+    root.style.setProperty('--body-glow-a', activePalette.bodyGlowA)
+    root.style.setProperty('--body-glow-b', activePalette.bodyGlowB)
+  }, [activePalette])
 
   const generateAnotherQuote = () => {
     const quotePool = filteredQuotes.length > 0 ? filteredQuotes : quotes
@@ -70,6 +108,7 @@ const Home = () => {
 
     if (nextQuote) {
       setCurrentQuoteId(nextQuote.id)
+      setPaletteIndex(getPaletteIndex(nextQuote.id))
     }
   }
 
@@ -114,7 +153,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-500">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-700">
       <Navbar
         search={search}
         onSearchChange={setSearch}

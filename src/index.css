@@ -17,6 +17,8 @@
 	--danger: #a34b52;
 	--danger-soft: #f7dbe0;
 	--shimmer: rgba(134, 183, 226, 0.22);
+	--body-glow-a: rgba(174, 207, 239, 0.45);
+	--body-glow-b: rgba(213, 228, 241, 0.55);
 	--font-sans: 'Inter', sans-serif;
 	--font-serif: 'Instrument Serif', serif;
 }
@@ -37,6 +39,8 @@ html.dark {
 	--danger: #f08a96;
 	--danger-soft: rgba(240, 138, 150, 0.16);
 	--shimmer: rgba(154, 199, 240, 0.14);
+	--body-glow-a: rgba(95, 126, 157, 0.36);
+	--body-glow-b: rgba(39, 64, 88, 0.42);
 }
 
 html {
@@ -44,14 +48,15 @@ html {
 	color: var(--text);
 	font-family: var(--font-sans);
 	scroll-behavior: smooth;
+	transition: background-color 700ms ease, color 700ms ease;
 }
 
 body {
 	min-width: 320px;
 	min-height: 100vh;
 	background:
-		radial-gradient(circle at top left, rgba(174, 207, 239, 0.45), transparent 34%),
-		radial-gradient(circle at bottom right, rgba(213, 228, 241, 0.55), transparent 38%),
+		radial-gradient(circle at top left, var(--body-glow-a), transparent 34%),
+		radial-gradient(circle at bottom right, var(--body-glow-b), transparent 38%),
 		linear-gradient(180deg, rgba(255, 255, 255, 0.38), transparent 40%),
 		var(--bg);
 	color: var(--text);
@@ -60,6 +65,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	position: relative;
+	transition: background 700ms ease, color 700ms ease;
 }
 
 body::before {
