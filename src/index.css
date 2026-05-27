@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+@import "tailwindcss";
+
+:root {
+	--bg: #f4f8fc;
+	--surface: #fbfcfe;
+	--panel: #f7fbff;
+	--panel-strong: #eef5fb;
+	--ink: #17324a;
+	--text: #203245;
+	--quote: #1c2d3e;
+	--muted: #667889;
+	--accent: #86b7e2;
+	--accent-soft: #dcecf8;
+	--line: rgba(104, 136, 168, 0.18);
+	--line-strong: rgba(104, 136, 168, 0.34);
+	--danger: #a34b52;
+	--danger-soft: #f7dbe0;
+	--shimmer: rgba(134, 183, 226, 0.22);
+	--font-sans: 'Inter', sans-serif;
+	--font-serif: 'Instrument Serif', serif;
+}
+
+html.dark {
+	--bg: #0d1720;
+	--surface: #11202d;
+	--panel: #142430;
+	--panel-strong: #182b39;
+	--ink: #f3f6f8;
+	--text: #e4edf5;
+	--quote: #f0f5fa;
+	--muted: #9bb0c2;
+	--accent: #9ac7f0;
+	--accent-soft: rgba(154, 199, 240, 0.18);
+	--line: rgba(185, 211, 233, 0.14);
+	--line-strong: rgba(185, 211, 233, 0.26);
+	--danger: #f08a96;
+	--danger-soft: rgba(240, 138, 150, 0.16);
+	--shimmer: rgba(154, 199, 240, 0.14);
+}
+
+html {
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+	scroll-behavior: smooth;
+}
+
+body {
+	min-width: 320px;
+	min-height: 100vh;
+	background:
+		radial-gradient(circle at top left, rgba(174, 207, 239, 0.45), transparent 34%),
+		radial-gradient(circle at bottom right, rgba(213, 228, 241, 0.55), transparent 38%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.38), transparent 40%),
+		var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	position: relative;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0.2;
+	background-image: radial-gradient(rgba(255, 255, 255, 0.35) 0.7px, transparent 0.7px);
+	background-size: 18px 18px;
+	mix-blend-mode: soft-light;
+}
+
+#root {
+	min-height: 100vh;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+::selection {
+	background: rgba(134, 183, 226, 0.28);
+}
