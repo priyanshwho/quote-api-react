@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# FreeAPI Quote App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React + TypeScript app built with Vite that shows random quotes fetched from a public API. It includes a clean UI, theme support, local quote history, and quote sharing actions.
 
-Currently, two official plugins are available:
+## 🚀 What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Fetches quotes from a free quote API
+- Displays a quote card with text and author
+- Allows users to get a new random quote
+- Supports light/dark theme toggling
+- Shows a loading indicator while the quote loads
+- Stores favorite quotes in local storage for persistence
 
-## React Compiler
+## 🧩 Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `React` for user interface
+- `TypeScript` for static typing
+- `Vite` for fast development and build
+- `Tailwind CSS` for styling
+- Browser `fetch` for API requests
+- `localStorage` for saving user data
 
-## Expanding the ESLint configuration
+## 📁 Project structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `src/App.tsx` — main app shell and page layout
+- `src/main.tsx` — app bootstrap with Vite
+- `src/components/QuoteCard.tsx` — quote display card
+- `src/components/ActionButtons.tsx` — buttons for refresh, share, and theme actions
+- `src/components/Loader.tsx` — loading spinner UI
+- `src/components/Navbar.tsx` — top navigation bar
+- `src/components/TextRotate.tsx` — animated rotating text effect
+- `src/hooks/useQuotes.ts` — quote fetching and state management
+- `src/hooks/useLocalStorage.ts` — local storage helper hook
+- `src/hooks/useTheme.ts` — theme state and persistence hook
+- `src/utils/quotes.ts` — quote-related utilities or sample quote data
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧠 How it works
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. `useQuotes.ts` fetches a random quote from the API and tracks loading state.
+2. The `QuoteCard` component renders the quote text and author.
+3. `ActionButtons` provides controls for:
+   - loading a new quote
+   - copying the current quote
+   - toggling between light and dark mode
+4. `useTheme.ts` saves the selected theme in `localStorage` and applies it to the document.
+5. `useLocalStorage.ts` abstracts storing values in `localStorage`, so favorite or last-used settings persist across sessions.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Run locally
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the URL shown in the terminal, usually `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📦 Build for production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
+
+## 💡 Notes
+
+- If the API request fails, the app should show a fallback or retry behavior.
+- The UI is designed to be responsive and should work well on desktop and mobile.
+- You can extend the app with quote categories, favorites, or author search.
